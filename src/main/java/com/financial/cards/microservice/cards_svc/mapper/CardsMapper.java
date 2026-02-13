@@ -14,7 +14,7 @@ public class CardsMapper {
         return cardDTO;
     }
 
-    @SuppressWarnings("unused")
+    
     public static Cards mapToCards(CardDTO cardDTO, Cards cards) {
         cards.setCardNumber(cardDTO.getCardNumber());
         cards.setCardType(cardDTO.getCardType());
