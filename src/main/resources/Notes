@@ -1,1 +1,30 @@
 https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin
+
+1. Add the Jib plugin to your pom.xml
+2. Configure the Jib plugin to specify the base image and target image:
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>com.google.cloud.tools</groupId>
+      <artifactId>jib-maven-plugin</artifactId>
+      <version>3.1.4</version>
+      <configuration>
+        <from>
+          <image>openjdk:17-jdk-slim</image>
+        </from>
+        <to>
+          <image>your-dockerhub-username/your-image-name:tag</image>
+        </to>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+```
+3. Build the Docker image using the Jib plugin:
+```bash mvn compile jib:build
+```
+This command will compile your application and build the Docker image, pushing it to the specified registry.
+4. Run the Docker image:
+```bash docker run -p 9000:9000 your-dockerhub-username/your-image-name:tag
+```This command will run the Docker container and map port 8080 of the container to port 9000 on your host machine, allowing you to access the application at http://localhost:9000.
