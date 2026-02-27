@@ -1,7 +1,8 @@
-package com.financial.cards.microservice.cards_svc;
+package com.financial.cards.microservice.cards_svc.controller;
 
 import com.financial.cards.microservice.cards_svc.constants.CardConstants;
 import com.financial.cards.microservice.cards_svc.dto.CardDTO;
+import com.financial.cards.microservice.cards_svc.dto.CardsContactInfoDto;
 import com.financial.cards.microservice.cards_svc.dto.ErrorResponseDTO;
 import com.financial.cards.microservice.cards_svc.dto.ResponseDTO;
 import com.financial.cards.microservice.cards_svc.service.ICardsService;
@@ -13,7 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,17 @@ import org.springframework.web.bind.annotation.RestController;
         description = "CRUD REST APIs to CREATE, UPDATE, FETCH AND DELETE card details"
 )
 @RestController
-@AllArgsConstructor
 @RequestMapping(path = "/api/cards", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
 public class CardsController {
 
-    private ICardsService iCardsService;
+    private final ICardsService iCardsService;
+    @Autowired
+    private CardsContactInfoDto cardsContactInfoDto;
+
+    public CardsController(ICardsService iCardsService) {
+        this.iCardsService = iCardsService;
+    }
 
     @Operation(
             summary = "Create Card REST API",
@@ -162,5 +168,12 @@ public class CardsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDTO(CardConstants.STATUS_417, CardConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("/contact-info")
+    public  ResponseEntity<CardsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cardsContactInfoDto);
     }
 }

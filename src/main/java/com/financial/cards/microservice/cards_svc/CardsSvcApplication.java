@@ -1,5 +1,6 @@
 package com.financial.cards.microservice.cards_svc;
 
+import com.financial.cards.microservice.cards_svc.dto.CardsContactInfoDto;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -7,6 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
@@ -31,6 +33,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 				url = "https://www.CardsSvc.com/swagger-ui.html"
 		)
 )
+@EnableConfigurationProperties(value = {CardsContactInfoDto.class})
 public class CardsSvcApplication {
 
 	public static void main(String[] args) {
