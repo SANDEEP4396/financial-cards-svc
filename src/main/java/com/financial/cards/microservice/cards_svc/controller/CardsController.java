@@ -65,9 +65,9 @@ public class CardsController {
     )
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> createCard(@Valid @RequestParam
-                                                  @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
-                                                  String mobileNumber) {
-        iCardsService.createCard(mobileNumber);
+                                                  @Pattern(regexp = "^[2-9][0-9]{9}$", message = "Phone number must be 10 digits")
+                                                  String phoneNumber) {
+        iCardsService.createCard(phoneNumber);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDTO(CardConstants.STATUS_201, CardConstants.MESSAGE_201));
@@ -75,7 +75,7 @@ public class CardsController {
 
     @Operation(
             summary = "Fetch Card Details REST API",
-            description = "REST API to fetch card details based on a mobile number"
+            description = "REST API to fetch card details based on a phone number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -92,9 +92,9 @@ public class CardsController {
     })
     @GetMapping("/fetch")
     public ResponseEntity<CardDTO> fetchCardDetails(@RequestParam
-                                                    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
-                                                    String mobileNumber) {
-        CardDTO cardsDto = iCardsService.fetchCard(mobileNumber);
+                                                    @Pattern(regexp = "^[2-9][0-9]{9}$", message = "Phone number must be 10 digits")
+                                                    String phoneNumber) {
+        CardDTO cardsDto = iCardsService.fetchCard(phoneNumber);
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
@@ -135,7 +135,7 @@ public class CardsController {
 
     @Operation(
             summary = "Delete Card Details REST API",
-            description = "REST API to delete Card details based on a mobile number"
+            description = "REST API to delete Card details based on a phone number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -156,9 +156,9 @@ public class CardsController {
     })
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDTO> deleteCardDetails(@RequestParam
-                                                         @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
-                                                         String mobileNumber) {
-        boolean isDeleted = iCardsService.deleteCard(mobileNumber);
+                                                         @Pattern(regexp = "^[2-9][0-9]{9}$", message = "Phone number must be 10 digits")
+                                                         String phoneNumber) {
+        boolean isDeleted = iCardsService.deleteCard(phoneNumber);
         if (isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -171,7 +171,7 @@ public class CardsController {
     }
 
     @GetMapping("/contact-info")
-    public  ResponseEntity<CardsContactInfoDto> getContactInfo() {
+    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(cardsContactInfoDto);
