@@ -41,6 +41,17 @@ management:
   info:
     env:
       enabled: true # This configuration enables the inclusion of environment information in the application's info endpoint. This can be useful for debugging and monitoring purposes, as it allows you to see the active profiles, property sources, and other environment details when accessing the /actuator/info endpoint.
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: true # This configuration enables the shutdown endpoint, which allows you to gracefully shut down the application by sending a POST request to the /actuator/shutdown endpoint. This can be useful for managing the lifecycle of the application and performing cleanup tasks before shutting down.
+    health:
+      probes:
+        enabled: true
   endpoints:
     web:
       exposure:
@@ -66,3 +77,11 @@ info:
 endpoints:
   shutdown:
     enabled: true
+
+logging:
+  level:
+    com:
+      financial:
+        cards:
+          microservice:
+            cards_svc: DEBUG
