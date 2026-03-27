@@ -99,8 +99,9 @@ public class CardsController {
                                                     @RequestParam
                                                     @Pattern(regexp = "^[2-9][0-9]{9}$", message = "Phone number must be 10 digits")
                                                     String phoneNumber) {
-        LOGGER.debug("CorrelationId: {}, Fetching cards details for phone number: {}", correlationId, phoneNumber);
+        LOGGER.debug("fetchCardDetails API called");
         CardDTO cardsDto = iCardsService.fetchCard(phoneNumber);
+        LOGGER.debug("Fetching cards details for phone number: {}", phoneNumber);
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
