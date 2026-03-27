@@ -56,6 +56,9 @@ management:
     web:
       exposure:
         include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name} # This configuration adds a common tag to all metrics with the key "application" and the value set to the name of the application as defined in the spring.application.name property. This can be useful for filtering and grouping metrics in a monitoring system, allowing you to easily identify which metrics belong to which application when you have multiple applications sending metrics to the same monitoring system.
 # Registers with Eureka server for service discovery and sends heartbeats to indicate that the service is alive and healthy. This allows other services to discover and communicate with this service through the Eureka server.
 eureka:
   instance:
@@ -72,6 +75,8 @@ info:
     name: "cards"
     description: "This service manages customer cards and related information."
     version: "1.0.0"
+
+
 
 # Optional for now can be ignored
 endpoints:
